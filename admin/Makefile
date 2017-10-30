@@ -1,8 +1,12 @@
-services = register.pb.go
+PROTO = *.proto
+GO = *.pb.go
 
 .PHONY: clean all
 
-all: $(services)
+clean:
+	$(RM) $(GO)
 
-$(services): %.pb.go: %.proto
-	protoc --go_out=. $<
+all: %.pb.go
+
+%.pb.go:
+	protoc --go_out=. $(wildcard $(PROTO))
